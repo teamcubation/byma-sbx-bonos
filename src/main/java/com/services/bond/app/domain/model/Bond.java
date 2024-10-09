@@ -1,4 +1,4 @@
-package com.services.bono.app.domain.model;
+package com.services.bond.app.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Bono {
+public class Bond {
     private String id;
     private String name;
-    private Double price;
-    private Double tasaDeInteres;
-    private Date fechaCreacion;
+    private double price;
+    private double interestRate;
+    private Date creationDate;
 }
