@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/bono")
+@RequestMapping("/bond")
 public class BondController {
     private static final Logger log = LoggerFactory.getLogger(BondController.class);
     private static final String REGISTERING_BOND = "registering bond...";
