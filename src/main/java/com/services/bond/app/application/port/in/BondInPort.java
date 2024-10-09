@@ -1,4 +1,4 @@
 package com.services.bond.app.application.port.in;
 
-public interface BondServicePort {
+public interface BondInPort {
 }
