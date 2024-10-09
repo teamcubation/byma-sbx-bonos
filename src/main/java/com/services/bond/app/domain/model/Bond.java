@@ -4,17 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Bond {
-    private String id;
+    private long id;
     private String name;
     private double price;
     private double interestRate;
-    private Date creationDate;
+    private LocalDate creationDate;
 }
+

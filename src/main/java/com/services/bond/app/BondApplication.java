@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BondApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(com.services.bond.app.BondApplication.class, args);
+		SpringApplication.run(BondApplication.class, args);
 	}
 
 }

@@ -1,5 +1,4 @@
 package com.services.bond.app.application.port.in;
-
 import com.services.bond.app.domain.model.Bond;
 
 public interface BondInPort {
@@ -13,5 +12,4 @@ public interface BondInPort {
     Bond delete(long id);
 
     Iterable<Bond> getAll();
-
 }
