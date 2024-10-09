@@ -1,5 +1,6 @@
 package com.services.bono.app.infrastructure.adapter.in.web.mapper;
 
+import com.services.bono.app.domain.model.Bono;
 import com.services.bono.app.infrastructure.adapter.in.web.dto.BonoDTO;
 
 public class BonoMapper {

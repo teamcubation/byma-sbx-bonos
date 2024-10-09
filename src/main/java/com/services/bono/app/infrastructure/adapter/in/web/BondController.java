@@ -1,6 +1,7 @@
 package com.services.bono.app.infrastructure.adapter.in.web;
 
 import com.services.bono.app.application.port.in.BonoServicePort;
+import com.services.bono.app.domain.model.Bono;
 import com.services.bono.app.infrastructure.adapter.in.web.dto.BonoDTO;
 import com.services.bono.app.infrastructure.adapter.in.web.mapper.BonoMapper;
 import jakarta.validation.Valid;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/bono")
-public class BonoController {
-    private static final Logger log = LoggerFactory.getLogger(BonoController.class);
+public class BondController {
+    private static final Logger log = LoggerFactory.getLogger(BondController.class);
     private static final String REGISTRANDO_BONO = "registrando bono...";
     private static final String BONO_CREADO = "bono creado: ";
     private static final String OBTENIENDO_TODOS_LOS_BONOS = "obteniendo todos los bonos...";
@@ -25,7 +26,7 @@ public class BonoController {
     @Autowired
     private BonoServicePort bonoServicePort;
 
-    public BonoController(BonoServicePort bonoServicePort) {
+    public BondController(BonoServicePort bonoServicePort) {
         this.bonoServicePort = bonoServicePort;
     }
 
