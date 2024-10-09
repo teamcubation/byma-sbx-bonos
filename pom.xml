@@ -8,10 +8,10 @@
 		<version>3.3.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.services.bono</groupId>
-	<artifactId>bono</artifactId>
+	<groupId>com.services.bond</groupId>
+	<artifactId>bond</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bono</name>
+	<name>bond</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
