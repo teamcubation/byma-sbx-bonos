@@ -1,13 +1,13 @@
-package com.services.bono.app;
+package com.services.bond.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BonoApplication {
+public class BondApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BonoApplication.class, args);
+		SpringApplication.run(BondApplication.class, args);
 	}
 
 }
