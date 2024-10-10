@@ -2,19 +2,20 @@ package com.services.bond.app.infrastructure.adapter.in.web;
 
 import com.services.bond.app.application.port.in.BondInPort;
 import com.services.bond.app.domain.model.Bond;
-import com.services.bond.app.infrastructure.adapter.in.web.dto.BondDTO;
+import com.services.bond.app.infrastructure.adapter.in.web.dto.request.BondRequest;
 import com.services.bond.app.infrastructure.adapter.in.web.mapper.BondMapper;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/bond")
+@RequiredArgsConstructor
+@RequestMapping("/api/bonds")
 public class BondController {
     private static final Logger log = LoggerFactory.getLogger(BondController.class);
     private static final String REGISTERING_BOND = "registering bond...";
@@ -24,24 +25,19 @@ public class BondController {
     private static final String DELETING_BOND = "deleting bond: ";
     private static final String UPDATING_BOND = "updating bond...";
 
-    @Autowired
-    private BondInPort bondInPort;
-
-    public BondController(BondInPort bondInPort) {
-        this.bondInPort = bondInPort;
-    }
+    private final BondInPort bondInPort;
 
     @SneakyThrows
-    @PostMapping("/")
-    public ResponseEntity<?> register(@RequestBody @Valid BondDTO bondDTO) {
+    @PostMapping()
+    public ResponseEntity<?> register(@RequestBody @Valid BondRequest bondRequest) {
         log.info(REGISTERING_BOND);
-        Bond bond = BondMapper.bondDTOToBond(bondDTO);
+        Bond bond = BondMapper.bondRequestToBond(bondRequest);
         bondInPort.create(bond);
-        log.info(BOND_CREATED + bondDTO);
-        return new ResponseEntity<BondDTO>(bondDTO, HttpStatus.CREATED);
+        log.info(BOND_CREATED + bondRequest);
+        return new ResponseEntity<BondRequest>(bondRequest, HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<?> getAll() {
         log.info(GETTING_ALL_BONDS);
         return ResponseEntity.ok(bondInPort.getAll());
@@ -49,7 +45,7 @@ public class BondController {
 
     @SneakyThrows
     @GetMapping("/{id}")
-    public ResponseEntity<?> getByID(@PathVariable long id) {
+    public ResponseEntity<?> getById(@PathVariable long id) {
         log.info(BOND_BY_ID);
         return ResponseEntity.ok(bondInPort.findByID(id));
     }
@@ -64,9 +60,9 @@ public class BondController {
 
     @SneakyThrows
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody @Valid BondDTO bondDTO) {
+    public ResponseEntity<?> update(@PathVariable long id, @RequestBody @Valid BondRequest bondRequest) {
         log.info(UPDATING_BOND);
-        Bond bond = BondMapper.bondDTOToBond(bondDTO);
-        return ResponseEntity.ok(BondMapper.bondToBondDTO(bondInPort.update(id, bond)));
+        Bond bond = BondMapper.bondRequestToBond(bondRequest);
+        return ResponseEntity.ok(BondMapper.bondToBondResponse(bondInPort.update(id, bond)));
     }
 }

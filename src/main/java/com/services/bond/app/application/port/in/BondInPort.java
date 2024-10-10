@@ -1,6 +1,8 @@
 package com.services.bond.app.application.port.in;
 import com.services.bond.app.domain.model.Bond;
 
+import java.util.List;
+
 public interface BondInPort {
 
     Bond create(Bond bond) throws Exception;
@@ -11,5 +13,5 @@ public interface BondInPort {
 
     void delete(long id) throws Exception;
 
-    Iterable<Bond> getAll();
+    List<Bond> getAll();
 }

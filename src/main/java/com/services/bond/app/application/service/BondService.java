@@ -7,6 +7,8 @@ import com.services.bond.app.domain.model.exception.BondNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BondService implements BondInPort {
@@ -44,7 +46,7 @@ public class BondService implements BondInPort {
     }
 
     @Override
-    public Iterable<Bond> getAll() {
+    public List<Bond> getAll() {
         return bondOutPort.getAll();
     }
 }
