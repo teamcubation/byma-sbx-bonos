@@ -3,9 +3,12 @@ package com.services.bond.app.application.service;
 import com.services.bond.app.application.port.in.BondInPort;
 import com.services.bond.app.application.port.out.BondOutPort;
 import com.services.bond.app.domain.model.Bond;
+import com.services.bond.app.domain.model.exception.BondDuplicateException;
 import com.services.bond.app.domain.model.exception.BondNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,11 +17,11 @@ public class BondService implements BondInPort {
     private final BondOutPort bondOutPort;
 
     @Override
-    public Bond create(Bond bond) throws Exception {
-        if (bondOutPort.findById(bond.getId()).isPresent()) {
-            throw new Exception("Bond already exists");
+    public Bond create(Bond bond) throws BondDuplicateException {
+        if (bondOutPort.existsByNameIgnoreCase(bond.getName())) {
+            throw new BondDuplicateException();
         }
-        return bondOutPort.create(bond);
+        return bondOutPort.save(bond);
     }
 
     @Override
@@ -27,13 +30,17 @@ public class BondService implements BondInPort {
     }
 
     @Override
-    public Bond update(long id, Bond bond) throws Exception {
-        return bondOutPort.findById(id).map(bond1 -> {
-            bond1.setName(bond.getName());
-            bond1.setPrice(bond.getPrice());
-            bond1.setInterestRate(bond.getInterestRate());
-            return bondOutPort.create(bond1);
-        }).orElseThrow(BondNotFoundException::new);
+    public Bond update(long id, Bond bond) throws BondDuplicateException {
+        Bond existingBond = bondOutPort.findById(id).orElseThrow(BondNotFoundException::new);
+
+        if (!existingBond.getName().equals(bond.getName()) && bondOutPort.existsByNameIgnoreCase(bond.getName())) {
+            throw new BondDuplicateException();
+        }
+
+        existingBond.setName(bond.getName());
+        existingBond.setPrice(bond.getPrice());
+        existingBond.setInterestRate(bond.getInterestRate());
+        return bondOutPort.save(existingBond);
     }
 
     @Override
