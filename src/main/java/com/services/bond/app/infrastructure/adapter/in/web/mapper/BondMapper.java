@@ -10,7 +10,6 @@ public class BondMapper {
                 .name(bond.getName())
                 .price(bond.getPrice())
                 .interestRate(bond.getInterestRate())
-                .creationDate(bond.getCreationDate())
                 .build();
     }
 
@@ -19,7 +18,6 @@ public class BondMapper {
                 .name(bondDTO.getName())
                 .price(bondDTO.getPrice())
                 .interestRate(bondDTO.getInterestRate())
-                .creationDate(bondDTO.getCreationDate())
                 .build();
     }
 }
