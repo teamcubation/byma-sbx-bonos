@@ -1,13 +1,16 @@
-package com.services.bono.app.infrastructure.adapter.out.persistence.mapper;
+package com.services.bond.app.infrastructure.adapter.out.persistence.mapper;
 
-import com.services.bono.app.domain.model.Bond;
-import com.services.bono.app.domain.model.exception.BondNotFoundException;
-import com.services.bono.app.infrastructure.adapter.out.persistence.entity.BondEntity;
 
+import com.services.bond.app.domain.model.Bond;
+import com.services.bond.app.infrastructure.adapter.out.persistence.entity.BondEntity;
+import com.services.bond.app.domain.model.exception.BondNotFoundException;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class BondPersistenceMapper {
+
     public static Bond bondEntityToBondModel(BondEntity bondEntity) {
         if (bondEntity == null){
             throw new BondNotFoundException();
@@ -17,6 +20,7 @@ public class BondPersistenceMapper {
                 .name(bondEntity.getName())
                 .price(bondEntity.getPrice())
                 .interestRate(bondEntity.getInterestRate())
+                .creationDate(bondEntity.getCreationDate())
                 .build();
     }
 
@@ -29,6 +33,7 @@ public class BondPersistenceMapper {
                 .name(bond.getName())
                 .price(bond.getPrice())
                 .interestRate(bond.getInterestRate())
+                .creationDate(LocalDate.now())
                 .build();
     }
 
@@ -40,4 +45,5 @@ public class BondPersistenceMapper {
                 .map(BondPersistenceMapper::bondEntityToBondModel)
                 .collect(Collectors.toList());
     }
+
 }
