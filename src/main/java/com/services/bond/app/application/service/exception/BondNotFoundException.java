@@ -1,4 +1,4 @@
-package com.services.bond.app.domain.model.exception;
+package com.services.bond.app.application.service.exception;
 
 public class BondNotFoundException extends RuntimeException {
 }
