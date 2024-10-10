@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -18,10 +19,9 @@ public class BondPersistenceAdapter implements BondOutPort {
 
 
     @Override
-    public Bond findById(long id) throws Exception {
+    public Optional<Bond> findById(long id) {
         return bondRepository.findById(id)
-                .map(BondPersistenceMapper::bondEntityToBondModel)
-                .orElseThrow(BondNotFoundException::new);
+                .map(BondPersistenceMapper::bondEntityToBondModel);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class BondPersistenceAdapter implements BondOutPort {
     }
 
     @Override
-    public Bond create(Bond bond) throws Exception {
+    public Bond create(Bond bond) throws BondNotFoundException {
         if (bond == null) {
             throw new BondNotFoundException();
         }

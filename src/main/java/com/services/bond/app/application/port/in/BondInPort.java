@@ -3,13 +3,13 @@ import com.services.bond.app.domain.model.Bond;
 
 public interface BondInPort {
 
-    Bond register(Bond bond);
+    Bond create(Bond bond) throws Exception;
 
-    Bond getByID(long id);
+    Bond findByID(long id) throws Exception;
 
-    Bond update(long id, Bond bond);
+    Bond update(long id, Bond bond) throws Exception;
 
-    Bond delete(long id);
+    void delete(long id) throws Exception;
 
     Iterable<Bond> getAll();
 }

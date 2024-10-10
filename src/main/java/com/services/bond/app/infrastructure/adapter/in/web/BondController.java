@@ -5,6 +5,7 @@ import com.services.bond.app.domain.model.Bond;
 import com.services.bond.app.infrastructure.adapter.in.web.dto.BondDTO;
 import com.services.bond.app.infrastructure.adapter.in.web.mapper.BondMapper;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,12 @@ public class BondController {
         this.bondInPort = bondInPort;
     }
 
+    @SneakyThrows
     @PostMapping("/")
     public ResponseEntity<?> register(@RequestBody @Valid BondDTO bondDTO) {
         log.info(REGISTERING_BOND);
         Bond bond = BondMapper.bondDTOToBond(bondDTO);
-        bondInPort.register(bond);
+        bondInPort.create(bond);
         log.info(BOND_CREATED + bondDTO);
         return new ResponseEntity<BondDTO>(bondDTO, HttpStatus.CREATED);
     }
@@ -45,12 +47,14 @@ public class BondController {
         return ResponseEntity.ok(bondInPort.getAll());
     }
 
+    @SneakyThrows
     @GetMapping("/{id}")
     public ResponseEntity<?> getByID(@PathVariable long id) {
         log.info(BOND_BY_ID);
-        return ResponseEntity.ok(bondInPort.getByID(id));
+        return ResponseEntity.ok(bondInPort.findByID(id));
     }
 
+    @SneakyThrows
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         log.info(DELETING_BOND + id);
@@ -58,6 +62,7 @@ public class BondController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @SneakyThrows
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable long id, @RequestBody @Valid BondDTO bondDTO) {
         log.info(UPDATING_BOND);
