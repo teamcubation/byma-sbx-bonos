@@ -10,5 +10,5 @@ public interface BondOutPort {
     Optional<Bond> findById(long id);
     List<Bond> getAll();
     Bond create(Bond bond) throws BondNotFoundException;
-    void deleteById(long id) throws Exception;
+    void deleteById(long id) throws BondNotFoundException;
 }
