@@ -10,7 +10,7 @@ public interface BondOutPort {
     Optional<Bond> findById(long id);
     List<Bond> getAll();
     Bond save(Bond bond) throws BondDuplicateException;
-    void deleteById(long id) throws Exception;
+    void deleteById(long id) throws BondNotFoundException;
     boolean existsByNameIgnoreCase(String name);
 
 }

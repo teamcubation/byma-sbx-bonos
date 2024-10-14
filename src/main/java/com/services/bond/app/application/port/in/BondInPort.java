@@ -1,4 +1,5 @@
 package com.services.bond.app.application.port.in;
+import com.services.bond.app.application.service.exception.BondNotFoundException;
 import com.services.bond.app.domain.model.Bond;
 
 public interface BondInPort {
@@ -9,7 +10,7 @@ public interface BondInPort {
 
     Bond update(long id, Bond bond) throws Exception;
 
-    void delete(long id) throws Exception;
+    void delete(long id) throws BondNotFoundException;
 
     Iterable<Bond> getAll();
 }

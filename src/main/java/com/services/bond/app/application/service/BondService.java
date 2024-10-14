@@ -47,14 +47,11 @@ public class BondService implements BondInPort {
             existingBond.setName(bond.getName());
         }
 
-        existingBond.setName(bond.getName());
-        existingBond.setPrice(bond.getPrice());
-        existingBond.setInterestRate(bond.getInterestRate());
         return bondOutPort.save(existingBond);
     }
 
     @Override
-    public void delete(long id) throws Exception {
+    public void delete(long id) throws BondNotFoundException {
         if (bondOutPort.findById(id).isEmpty())
             throw new BondNotFoundException();
         bondOutPort.deleteById(id);
