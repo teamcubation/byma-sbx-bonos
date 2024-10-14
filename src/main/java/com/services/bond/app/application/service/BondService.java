@@ -5,10 +5,12 @@ import com.services.bond.app.application.port.out.BondOutPort;
 import com.services.bond.app.application.service.exception.BondDuplicateException;
 import com.services.bond.app.domain.model.Bond;
 import com.services.bond.app.application.service.exception.BondNotFoundException;
+import com.services.bond.app.application.service.exception.BondDuplicateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -18,10 +20,10 @@ public class BondService implements BondInPort {
 
     @Override
     public Bond create(Bond bond) throws BondDuplicateException {
-        if (bondOutPort.findById(bond.getId()).isPresent()) {
+        if (bondOutPort.existsByNameIgnoreCase(bond.getName())) {
             throw new BondDuplicateException();
         }
-        return bondOutPort.create(bond);
+        return bondOutPort.save(bond);
     }
 
     @Override
@@ -31,12 +33,23 @@ public class BondService implements BondInPort {
 
     @Override
     public Bond update(long id, Bond bond) throws BondNotFoundException, BondDuplicateException {
-        return bondOutPort.findById(id).map(bond1 -> {
-            bond1.setName(bond.getName());
-            bond1.setPrice(bond.getPrice());
-            bond1.setInterestRate(bond.getInterestRate());
-            return bondOutPort.create(bond1);
-        }).orElseThrow(BondNotFoundException::new);
+        Bond existingBond = bondOutPort.findById(id).orElseThrow(BondNotFoundException::new);
+
+        if (!existingBond.getName().equals(bond.getName()) && bondOutPort.existsByNameIgnoreCase(bond.getName())) {
+            throw new BondDuplicateException();
+        }
+
+        if(bond.getPrice() != null && bond.getPrice() > 0) {
+            existingBond.setPrice(bond.getPrice());
+        }
+        if(bond.getInterestRate() != null && bond.getInterestRate() > 0) {
+            existingBond.setInterestRate(bond.getInterestRate());
+        }
+        if(bond.getName() != null && !bond.getName().isEmpty()){
+            existingBond.setName(bond.getName());
+        }
+
+        return bondOutPort.save(existingBond);
     }
 
     @Override
