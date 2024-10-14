@@ -2,7 +2,7 @@ package com.services.bond.app.infrastructure.adapter.out.persistence;
 
 import com.services.bond.app.application.port.out.BondOutPort;
 import com.services.bond.app.domain.model.Bond;
-import com.services.bond.app.domain.model.exception.BondNotFoundException;
+import com.services.bond.app.application.service.exception.BondNotFoundException;
 import com.services.bond.app.infrastructure.adapter.out.persistence.mapper.BondPersistenceMapper;
 import com.services.bond.app.infrastructure.adapter.out.persistence.repository.BondRepository;
 import lombok.RequiredArgsConstructor;

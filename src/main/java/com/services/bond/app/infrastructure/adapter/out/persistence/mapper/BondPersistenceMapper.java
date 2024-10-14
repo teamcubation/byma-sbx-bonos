@@ -3,7 +3,7 @@ package com.services.bond.app.infrastructure.adapter.out.persistence.mapper;
 
 import com.services.bond.app.domain.model.Bond;
 import com.services.bond.app.infrastructure.adapter.out.persistence.entity.BondEntity;
-import com.services.bond.app.domain.model.exception.BondNotFoundException;
+import com.services.bond.app.application.service.exception.BondNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
