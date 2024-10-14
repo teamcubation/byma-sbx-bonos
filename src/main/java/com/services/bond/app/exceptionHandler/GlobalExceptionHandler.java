@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
     public ErrorMessageResponse handleBondNotFoundException(HttpServletRequest req, Exception e) {
         return ErrorMessageResponse.builder()
                 .exception(e.getClass().getSimpleName())
-                .code(BONO_NOT_FOUND.getCode())
-                .message(BONO_NOT_FOUND.getMessage())
+                .code(BOND_NOT_FOUND.getCode())
+                .message(BOND_NOT_FOUND.getMessage())
                 .path(req.getRequestURI())
                 .build();
     }
@@ -34,8 +34,8 @@ public class GlobalExceptionHandler {
     public ErrorMessageResponse handleBondDuplicateException(HttpServletRequest req, Exception e) {
         return ErrorMessageResponse.builder()
                 .exception(e.getClass().getSimpleName())
-                .code(DUPLICATE_BONO.getCode())
-                .message(DUPLICATE_BONO.getMessage())
+                .code(DUPLICATE_BOND.getCode())
+                .message(DUPLICATE_BOND.getMessage())
                 .path(req.getRequestURI())
                 .build();
     }
@@ -46,8 +46,8 @@ public class GlobalExceptionHandler {
         BindingResult result = e.getBindingResult();
         return ErrorMessageResponse.builder()
                 .exception(e.getClass().getSimpleName())
-                .code(INVALID_BONO.getCode())
-                .message(INVALID_BONO.getMessage())
+                .code(INVALID_BOND.getCode())
+                .message(INVALID_BOND.getMessage())
                 .path(req.getRequestURI())
                 .details(result.getFieldErrors()
                         .stream()
