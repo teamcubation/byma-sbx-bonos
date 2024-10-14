@@ -3,8 +3,8 @@ package com.services.bond.app.application.service;
 import com.services.bond.app.application.port.in.BondInPort;
 import com.services.bond.app.application.port.out.BondOutPort;
 import com.services.bond.app.domain.model.Bond;
-import com.services.bond.app.domain.model.exception.BondDuplicateException;
-import com.services.bond.app.domain.model.exception.BondNotFoundException;
+import com.services.bond.app.application.service.exception.BondNotFoundException;
+import com.services.bond.app.application.service.exception.BondDuplicateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
