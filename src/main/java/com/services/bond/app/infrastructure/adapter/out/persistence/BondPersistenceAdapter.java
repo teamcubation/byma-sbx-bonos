@@ -30,7 +30,7 @@ public class BondPersistenceAdapter implements BondOutPort {
     }
 
     @Override
-    public Bond create(Bond bond) throws BondNotFoundException {
+    public Bond save(Bond bond) throws BondNotFoundException {
         if (bond == null) {
             throw new BondNotFoundException();
         }
@@ -38,10 +38,15 @@ public class BondPersistenceAdapter implements BondOutPort {
     }
 
     @Override
-    public void deleteById(long id) throws Exception {
+    public void deleteById(long id) throws BondNotFoundException {
         if (bondRepository.findById(id).isEmpty()){
             throw new BondNotFoundException();
         }
         bondRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsByNameIgnoreCase(String name) {
+        return bondRepository.existsByNameIgnoreCase(name);
     }
 }

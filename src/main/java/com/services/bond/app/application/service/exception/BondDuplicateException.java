@@ -4,4 +4,7 @@ public class BondDuplicateException extends RuntimeException {
     public BondDuplicateException(String message) {
         super(message);
     }
+    public BondDuplicateException() {
+        super();
+    }
 }

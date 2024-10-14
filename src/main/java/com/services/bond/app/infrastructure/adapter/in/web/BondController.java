@@ -64,7 +64,7 @@ public class BondController {
 
     @SneakyThrows
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody @Valid BondDTO bondDTO) {
+    public ResponseEntity<?> update(@PathVariable long id, @RequestBody BondDTO bondDTO) {
         log.info(UPDATING_BOND);
         Bond bond = BondMapper.bondDTOToBond(bondDTO);
         return ResponseEntity.ok(BondMapper.bondToBondDTO(bondInPort.update(id, bond)));
