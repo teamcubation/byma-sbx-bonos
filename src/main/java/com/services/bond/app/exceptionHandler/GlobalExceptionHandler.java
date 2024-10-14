@@ -2,21 +2,20 @@ package com.services.bond.app.exceptionHandler;
 
 import com.services.bond.app.application.service.exception.BondDuplicateException;
 import com.services.bond.app.application.service.exception.BondNotFoundException;
+import com.services.bond.app.application.service.exception.ValueNegativeException;
 import com.services.bond.app.exceptionHandler.utlis.ErrorMessageResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
 import static com.services.bond.app.exceptionHandler.utlis.ErrorMessages.*;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BondNotFoundException.class)
@@ -39,6 +38,16 @@ public class GlobalExceptionHandler {
                 .path(req.getRequestURI())
                 .build();
     }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValueNegativeException.class)
+    public ErrorMessageResponse handleValueNegativeException(HttpServletRequest req, Exception e) {
+        return ErrorMessageResponse.builder()
+                .exception(e.getClass().getSimpleName())
+                .code(VALUE_NEGATIVE.getCode())
+                .message(VALUE_NEGATIVE.getMessage())
+                .path(req.getRequestURI())
+                .build();
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -55,6 +64,7 @@ public class GlobalExceptionHandler {
                         .collect(Collectors.toList()))
                 .build();
     }
+
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)

@@ -48,7 +48,7 @@ public class BondController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable long id) {
         log.info(BOND_BY_ID);
-        return ResponseEntity.ok(bondInPort.findByID(id));
+        return ResponseEntity.ok(bondInPort.findById(id));
     }
 
     @SneakyThrows
