@@ -37,6 +37,16 @@ public class BondService implements BondInPort {
             throw new BondDuplicateException();
         }
 
+        if(bond.getPrice() != null && bond.getPrice() > 0) {
+            existingBond.setPrice(bond.getPrice());
+        }
+        if(bond.getInterestRate() != null && bond.getInterestRate() > 0) {
+            existingBond.setInterestRate(bond.getInterestRate());
+        }
+        if(bond.getName() != null && !bond.getName().isEmpty()){
+            existingBond.setName(bond.getName());
+        }
+
         existingBond.setName(bond.getName());
         existingBond.setPrice(bond.getPrice());
         existingBond.setInterestRate(bond.getInterestRate());

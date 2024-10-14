@@ -14,8 +14,8 @@ import java.time.LocalDate;
 public class Bond {
     private long id;
     private String name;
-    private double price;
-    private double interestRate;
+    private Double price;
+    private Double interestRate;
     private LocalDate creationDate;
 }
 
