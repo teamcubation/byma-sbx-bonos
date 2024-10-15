@@ -2,6 +2,7 @@ package com.services.bond.app.exceptionHandler;
 
 import com.services.bond.app.application.service.exception.BondDuplicateException;
 import com.services.bond.app.application.service.exception.BondNotFoundException;
+import com.services.bond.app.application.service.exception.ValueNegativeException;
 import com.services.bond.app.exceptionHandler.utlis.ErrorMessageResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -37,6 +38,16 @@ public class GlobalExceptionHandler {
                 .path(req.getRequestURI())
                 .build();
     }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValueNegativeException.class)
+    public ErrorMessageResponse handleValueNegativeException(HttpServletRequest req, Exception e) {
+        return ErrorMessageResponse.builder()
+                .exception(e.getClass().getSimpleName())
+                .code(VALUE_NEGATIVE.getCode())
+                .message(VALUE_NEGATIVE.getMessage())
+                .path(req.getRequestURI())
+                .build();
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -53,6 +64,7 @@ public class GlobalExceptionHandler {
                         .collect(Collectors.toList()))
                 .build();
     }
+
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
