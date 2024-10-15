@@ -1,10 +1,9 @@
-package com.services.bond.app;
-
+import com.services.bond.app.BondApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class BonoApplicationTests {
+@SpringBootTest(classes = BondApplication.class)
+class BondApplicationTests {
 
 	@Test
 	void contextLoads() {
