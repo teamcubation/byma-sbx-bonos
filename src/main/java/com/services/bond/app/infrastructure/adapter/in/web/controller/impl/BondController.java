@@ -32,9 +32,8 @@ public class BondController implements ApiBond {
     public ResponseEntity<?> register(@RequestBody @Valid BondRequest bondRequest) {
         log.info(REGISTERING_BOND);
         Bond bond = BondMapper.bondRequestToBond(bondRequest);
-        bondInPort.create(bond);
         log.info(BOND_CREATED + bondRequest);
-        return new ResponseEntity<BondResponse>(BondMapper.bondToBondResponse(bond), HttpStatus.CREATED);
+        return new ResponseEntity<BondResponse>(BondMapper.bondToBondResponse(bondInPort.create(bond)), HttpStatus.CREATED);
     }
 
     @GetMapping()

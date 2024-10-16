@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.stream.Collectors;
 
@@ -28,6 +30,7 @@ public class GlobalExceptionHandler {
                 .path(req.getRequestURI())
                 .build();
     }
+
     @ExceptionHandler(BondDuplicateException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorMessageResponse handleBondDuplicateException(HttpServletRequest req, Exception e) {
@@ -38,6 +41,7 @@ public class GlobalExceptionHandler {
                 .path(req.getRequestURI())
                 .build();
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ValueNegativeException.class)
     public ErrorMessageResponse handleValueNegativeException(HttpServletRequest req, Exception e) {
@@ -65,6 +69,16 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ErrorMessageResponse handleBadRequestError(HttpServletRequest req, NoResourceFoundException e) {
+        return ErrorMessageResponse.builder()
+                .exception(e.getClass().getSimpleName())
+                .code(URL_NOT_FOUND.getCode())
+                .message(URL_NOT_FOUND.getMessage())
+                .path(req.getRequestURI())
+                .build();
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
