@@ -9,6 +9,7 @@ public enum ErrorMessages {
     DUPLICATE_BOND("ERROR_BONO_002", "Bond is duplicated."),
     INVALID_BOND("ERR_BONO_003", "Invalid bond parameters."),
     VALUE_NEGATIVE("ERR_BONO_004", "Value cannot be negative."),
+    URL_NOT_FOUND("ERR_GEN_002", "URL not found"),
     GENERIC_ERROR("ERR_GEN_001", "An unexpected error occurred.");
 
 
