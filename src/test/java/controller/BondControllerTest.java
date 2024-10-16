@@ -6,7 +6,7 @@ import com.services.bond.app.application.service.exception.BondDuplicateExceptio
 import com.services.bond.app.application.service.exception.BondNotFoundException;
 import com.services.bond.app.domain.model.Bond;
 import com.services.bond.app.exceptionHandler.GlobalExceptionHandler;
-import com.services.bond.app.infrastructure.adapter.in.web.BondController;
+import com.services.bond.app.infrastructure.adapter.in.web.controller.impl.BondController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
