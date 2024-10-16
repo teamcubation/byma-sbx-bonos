@@ -1,6 +1,7 @@
-package com.services.bond.app.infrastructure.adapter.in.web;
+package com.services.bond.app.infrastructure.adapter.in.web.controller.impl;
 
 import com.services.bond.app.configuration.ConfigService;
+import com.services.bond.app.infrastructure.adapter.in.web.controller.ApiConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/config")
 @RequiredArgsConstructor
-public class ConfigController {
+public class ConfigController implements ApiConfig {
 
     private final ConfigService configService;
 
