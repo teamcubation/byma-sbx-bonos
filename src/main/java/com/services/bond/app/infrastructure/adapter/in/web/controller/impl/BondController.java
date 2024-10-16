@@ -1,9 +1,11 @@
 package com.services.bond.app.infrastructure.adapter.in.web.controller.impl;
 
 import com.services.bond.app.application.port.in.BondInPort;
+import com.services.bond.app.application.service.exception.BondNotFoundException;
 import com.services.bond.app.domain.model.Bond;
 import com.services.bond.app.infrastructure.adapter.in.web.controller.ApiBond;
 import com.services.bond.app.infrastructure.adapter.in.web.dto.request.BondRequest;
+import com.services.bond.app.infrastructure.adapter.in.web.dto.response.BondResponse;
 import com.services.bond.app.infrastructure.adapter.in.web.mapper.BondMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,7 @@ public class BondController implements ApiBond {
         Bond bond = BondMapper.bondRequestToBond(bondRequest);
         bondInPort.create(bond);
         log.info(BOND_CREATED + bondRequest);
-        return new ResponseEntity<BondRequest>(bondRequest, HttpStatus.CREATED);
+        return new ResponseEntity<BondResponse>(BondMapper.bondToBondResponse(bond), HttpStatus.CREATED);
     }
 
     @GetMapping()
@@ -42,7 +44,7 @@ public class BondController implements ApiBond {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable long id) {
+    public ResponseEntity<?> getById(@PathVariable long id) throws BondNotFoundException {
         log.info(BOND_BY_ID);
         return ResponseEntity.ok(bondInPort.findById(id));
     }
