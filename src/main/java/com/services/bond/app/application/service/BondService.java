@@ -3,6 +3,7 @@ package com.services.bond.app.application.service;
 import com.services.bond.app.application.port.in.BondInPort;
 import com.services.bond.app.application.port.out.BondOutPort;
 import com.services.bond.app.application.service.exception.BondDuplicateException;
+import com.services.bond.app.application.service.exception.ValueNegativeException;
 import com.services.bond.app.domain.model.Bond;
 import com.services.bond.app.application.service.exception.BondNotFoundException;
 import com.services.bond.app.application.service.exception.BondDuplicateException;
@@ -34,21 +35,24 @@ public class BondService implements BondInPort {
     @Override
     public Bond update(long id, Bond bond) throws BondNotFoundException, BondDuplicateException {
         Bond existingBond = bondOutPort.findById(id).orElseThrow(BondNotFoundException::new);
-
-        if (!existingBond.getName().equals(bond.getName()) && bondOutPort.existsByNameIgnoreCase(bond.getName())) {
-            throw new BondDuplicateException();
-        }
-
-        if(bond.getPrice() != null && bond.getPrice() > 0) {
-            existingBond.setPrice(bond.getPrice());
-        }
-        if(bond.getInterestRate() != null && bond.getInterestRate() > 0) {
-            existingBond.setInterestRate(bond.getInterestRate());
-        }
-        if(bond.getName() != null && !bond.getName().isEmpty()){
+        if (bond.getName() != null) {
+            if (!existingBond.getName().equals(bond.getName()) && bondOutPort.existsByNameIgnoreCase(bond.getName())) {
+                throw new BondDuplicateException();
+            }
             existingBond.setName(bond.getName());
         }
-
+        if (bond.getPrice() != null) {
+            if (bond.getPrice() <= 0) {
+                throw new ValueNegativeException();
+            }
+            existingBond.setPrice(bond.getPrice());
+        }
+        if (bond.getInterestRate() != null) {
+            if (bond.getInterestRate() <= 0) {
+                throw new ValueNegativeException();
+            }
+            existingBond.setInterestRate(bond.getInterestRate());
+        }
         return bondOutPort.save(existingBond);
     }
 
